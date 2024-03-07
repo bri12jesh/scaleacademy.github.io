@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap');
+
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #010101;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    font-size: 50px;
+}
+
+.home {
+    margin: 20px 0 0 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #010101;
+    border: none;
+}
+
+.home:hover {
+    background-color: #010101;
+    color: #fff;
+}
+
+.box {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.login,
+.signin {
+    margin-top: 20px;
+    padding: 40px;
+    text-align: center;
+    font-size: 24px;
+    background-color: #010101;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 2px solid #fff;
+    border-radius: 10px;
+box-shadow:1px 1px 1px 1px black;
+    
+}
+
+
+
+.col input {
+    font-size: 18px;
+    border: none;
+    padding: 10px;
+    width: 80%;
+    margin: 10px;
+    background-color: #fff;
+    color: #010101;
+    border-radius: 5px;
+}
+
+.col input:valid {
+    border: 2px solid #fff;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #fff;
+    color: #010101;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #010101;
+    color: #fff;
+}
+
+.forsignin,
+.forlogin {
+    margin-top: 20px;
+}
+
+.hide::before {
+    transform: rotateY(180deg);
+    transition: all 2s;
+}
+
+.hide {
+    display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    .logo {
+        display: flex;
+        /* position: fixed; */
+        width: 100%;
+
+        background-color: white;
+        border-bottom: 2px solid black;
+        /* width: 200px; */
+        /* animation: border 1s ease-in; */
+        font-size:40px;
+
+
+    }}

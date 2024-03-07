@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+   
+  
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'login.css' %}">
+</head>
+
+<body>
+    {% if msg %}
+    <div class="alert alert-warning alert-dark alert-dismissible fade show" role="alert">
+        <strong>{{msg}}</strong>
+        <button type="button" class="btn-close"  style="color: white;" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    
+    {% endif %}
+
+    <form action="/">
+        <button class="home" >Home</button>
+    </form>
+    <div class="header">
+        <div class="logo">APTECH
+
+        </div>
+    </div>
+    <div class="box">
+        <div class="login">
+            <div class="page">
+                <span> LOGIN</span>
+                <form action="/login" method="post">
+                    {% csrf_token %}
+                    <div class="col">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="col">
+                        <input type="password" name="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                    <!-- <a href="/delete" style="color: white; text-decoration: none;">delete</a> -->
+                </form>
+                <a href="/otpgenerate" style="color: white; text-decoration: none;">Forgot Password?</a>
+
+            </div>
+            <div class="forsignin">
+                Don't have an Account? <button id="tosignin">Signin</button>
+            </div>
+        </div>
+        <div class="signin hide">
+            <div class="page">
+                <span> SIGNIN</span>
+                <form action="/signin" method="post">
+                    {% csrf_token %}
+                    <div class="col">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="col">
+                        <input type="text" name="username" placeholder="Username" required>
+                    </div>
+                    <div class="col">
+                        <input type="tel" name="mobile" placeholder="Mobile" required>
+                    </div>
+                    <div class="col">
+                        <input type="password" name="password" placeholder="Password" id="password" required>
+                    </div>
+                    <div class="col">
+                        <input type="password" name="confirmpassword" placeholder="Confirm Password"
+                            id="confirmpassword" required>
+                    </div>
+                    <button type="submit" id="signinbtn">Signin</button>
+                </form>
+            </div>
+            <div class="forlogin">
+                Have an Account? <button id="tologin">Login</button>
+            </div>
+        </div>
+    </div>
+    </body>
+
+</html>

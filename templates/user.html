@@ -1,0 +1,182 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scale Academy</title>
+
+
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'user.css' %}">
+
+</head>
+
+<body>
+
+
+
+
+
+
+    <button id="navbar-btn"><i class="fa-solid fa-bars"></i></button>
+
+
+    <div class="show-username"><span class="username">Welcome {{username}}</span></div>
+
+    <div class="logo" style="font-family: Protest Revolution, sans-serif;"><i class="fa-solid fa-stairs"></i>Scale Academy</div>
+    <div class="hero">
+        
+
+        <main class="main">
+
+            <div class="content">
+
+                {% if buymsg %}
+                {{ buymsg }}
+                <a href="/course"><button class="buy">BUY COURSE</button></a>
+                {% endif %}
+
+                {% for course in coursedata %}
+                <div class='course'>
+                    <img src="{{ course.course_Img }}" class='course_img'>
+
+                    <div class='course_info'>
+                        <span class='title'>{{ course.course_name }}</span>
+                        <span class='course_instructor'>{{ course.course_instructor }}</span>
+                        <span class='course_duration'>{{ course.course_duration }}</span>
+                        <form method="post" action="{% url 'user' token=request.session.user_token %}learning/">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ course.course_name }}" class="courseName">
+                            <button type="submit" class="start">Start Learning <i
+                                    class="fa-solid fa-arrow-right"></i></button>
+                        </form>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <div class="slideout-sidebar">
+            <ul class="navbar-content">
+                <div class="close-btn"><i class="fa-solid fa-x fa-xl" style="color: #eeebf7;"></i></div>
+
+                {% if 'logged_in' in request.session %}
+                <li class="navbar"><a href="/logout">Logout</a></li>
+                <li class="navbar"><a href="/userdetail">Account Detail</a></li>
+                {% else %}
+                <li class="navbar"><a href="/login">LogIn</a></li>
+                <li class="navbar"><a href="/signin">SignIn</a></li>
+                {% endif %}
+                {% if 'logged_in' in request.session %}
+                <li class="navbar"> <a href="{% url 'user' token=request.session.user_token %}">MyCourse</a></li>
+                {% endif %}
+                <li class="navbar"><a href="/course">Courses</a></li>
+
+                <li class="navbar"><a href="/">Home</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div class="copy"> © 2024 Scale Academy Inc. All rights reserved.</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+
+
+        document.querySelector('#navbar-btn').addEventListener('click', () => {
+            document.querySelector('.navbar-content').classList.add("goback");
+            // document.querySelector('.heading').classList.toggle("move-right");
+            document.querySelector('.slideout-sidebar').classList.add('z-index')
+        });
+        document.querySelector('.close-btn').addEventListener('click', () => {
+            document.querySelector('.navbar-content').classList.remove("goback");
+            document.querySelector('.slideout-sidebar').classList.remove('z-index')
+        })
+
+        const user = document.querySelector('.username')
+        setTimeout(() => {
+            user.classList.add('show')
+
+
+        }, 2000)
+        setTimeout(() => {
+            user.classList.remove('show')
+        }, 4000)
+
+
+        document.querySelectorAll('.start').forEach(button => {
+            button.addEventListener('click', (event) => {
+                const parentDiv = event.target.closest('.course_info')
+
+                let courseName = parentDiv.querySelector('.courseName').value;
+
+
+                sessionStorage.setItem("courseName", courseName);
+
+                let userToken = "{{ request.session.user_token }}";
+
+                location.href = `/user/${userToken}/learning/`;
+            });
+        });
+
+
+
+
+
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
